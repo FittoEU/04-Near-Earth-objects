@@ -43,6 +43,9 @@ class NEODatabase:
         self._approaches = approaches
 
         # TODO: What additional auxiliary data structures will be useful?
+        # Dictionary because of its hashability - looking for a 'key' in
+        # dictionary does not loop through all values, but instead calculates
+        # the hash and jumps directly to that place in memory.
 
         # TODO: Link together the NEOs and their close approaches.
 
