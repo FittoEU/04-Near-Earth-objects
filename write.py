@@ -29,6 +29,21 @@ def write_to_csv(results, filename):
         'designation', 'name', 'diameter_km', 'potentially_hazardous'
     )
     # TODO: Write the results to a CSV file, following the specification in the instructions.
+    with open(filename, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames)
+        writer.writeheader()
+        for result in results:
+            serialised = result.serialise()
+            flattened = {
+                'datetime_utc': serialised['datetime_utc'],
+                'distance_au': serialised['distance_au'],
+                'velocity_km_s': serialised['velocity_km_s'],
+                'designation': serialised['neo']['designation'],
+                'name': serialised['neo']['name'],
+                'diameter_km': serialised['neo']['diameter_km'],
+                'potentially_hazardous': serialised['neo']['potentially_hazardous'],
+            }
+            writer.writerow(flattened)
 
 
 def write_to_json(results, filename):
@@ -43,3 +58,8 @@ def write_to_json(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     # TODO: Write the results to a JSON file, following the specification in the instructions.
+    with open(filename, 'w') as jsonfile:
+        list_to_write = []
+        for result in results:
+            list_to_write.append(result.serialise())
+        json.dump(list_to_write, jsonfile, indent=2)
