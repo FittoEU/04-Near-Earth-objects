@@ -108,15 +108,13 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
+    # DONE: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
     def __init__(self, *info):
         """Create a new `CloseApproach`.
 
         :param info: A list of excess arguments supplied to the constructor.
         """
-        # TODO: check whether I want to continue with <list> or go back to <dict>.
-
         # DONE: Assign information from the arguments passed to the constructor
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
@@ -144,7 +142,7 @@ class CloseApproach:
         """
         # DONE: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
+        # DONE: Use self.designation and self.name to build a fullname for this object.
         return datetime_to_str(self.time)
 
     def __str__(self):
