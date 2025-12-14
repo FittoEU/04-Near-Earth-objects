@@ -21,6 +21,7 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
+
     def __init__(self, neos, approaches):
         """Create a new `NEODatabase`.
 
@@ -39,25 +40,20 @@ class NEODatabase:
         :param neos: A collection of `NearEarthObject`s.
         :param approaches: A collection of `CloseApproach`es.
         """
+
         self._neos = neos
         self._approaches = approaches
-
-        # DONE: What additional auxiliary data structures will be useful?
-        # Dictionary because of its hashability - looking for a 'key' in
-        # dictionary does not loop through all values, but instead calculates
-        # the hash and jumps directly to that place in memory.
 
         self._neos_by_designation = {}
         for neo in self._neos:
             self._neos_by_designation[neo.designation.lower().strip()] = neo
-        
+
         self._neos_by_name = {}
         for neo in self._neos:
             if neo.name:
                 self._neos_by_name[neo.name.lower().strip()] = neo
 
-        # DONE: Link together the NEOs and their close approaches.
-
+        # Linking together the NEOs and their close approaches.
         for approach in self._approaches:
             approach.neo = self._neos_by_designation[approach._designation.lower().strip()]
             self._neos_by_designation[approach._designation.lower().strip()].approaches.append(approach)
@@ -75,7 +71,7 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # DONE: Fetch an NEO by its primary designation.
+
         found_neo = self._neos_by_designation.get(designation.lower().strip())
         return found_neo
 
@@ -93,7 +89,7 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # DONE: Fetch an NEO by its name.
+
         if not name:
             return None
         found_neo = self._neos_by_name.get(name.lower().strip())
@@ -113,7 +109,7 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # DONE: Generate `CloseApproach` objects that match all of the filters.
+
         for approach in self._approaches:
             if all(f(approach) for f in filters):
                 yield approach

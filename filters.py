@@ -16,6 +16,7 @@ iterator.
 
 You'll edit this file in Tasks 3a and 3c.
 """
+
 import operator
 
 
@@ -38,6 +39,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -49,11 +51,13 @@ class AttributeFilter:
         :param op: A 2-argument predicate comparator (such as `operator.le`).
         :param value: The reference value to compare against.
         """
+
         self.op = op
         self.value = value
 
     def __call__(self, approach):
         """Invoke `self(approach)`."""
+
         return self.op(self.get(approach), self.value)
 
     @classmethod
@@ -66,60 +70,110 @@ class AttributeFilter:
         :param approach: A `CloseApproach` on which to evaluate this filter.
         :return: The value of an attribute of interest, comparable to `self.value` via `self.op`.
         """
+
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Returns a nice representation of the filter: name, operator,
+        and reference value it's comparing to.
+        """
+
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
-    
+
+
 class ExactDateFilter(AttributeFilter):
+    """Used to construct approach filter filtering by specific date.
+    Classmethod gets approach date (from datetime) for __call__ method of
+    the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.time.date()
-    
+
+
 class StartDateFilter(AttributeFilter):
+    """Used to construct approach filter filtering after specific date.
+    Classmethod gets approach date (from datetime) for __call__ method of
+    the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.time.date()
-    
+
+
 class EndDateFilter(AttributeFilter):
+    """Used to construct approach filter filtering before specific date.
+    Classmethod gets approach date (from datetime) for __call__ method of
+    the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.time.date()
-    
+
+
 class MinDistanceFilter(AttributeFilter):
+    """Used to construct approach filter filtering above specific distance.
+    Classmethod gets approach distance for __call__ method of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.distance
-    
+
+
 class MaxDistanceFilter(AttributeFilter):
+    """Used to construct approach filter filtering below specific distance.
+    Classmethod gets approach distance for __call__ method of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.distance
-    
+
+
 class MinVelocityFilter(AttributeFilter):
+    """Used to construct approach filter filtering above specific velocity.
+    Classmethod gets approach velocity for __call__ method of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.velocity
+
 
 class MaxVelocityFilter(AttributeFilter):
+    """Used to construct approach filter filtering below specific velocity.
+    Classmethod gets approach velocity for __call__ method of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.velocity
-    
+
+
 class MinDiameterFilter(AttributeFilter):
-    @classmethod
-    def get(cls, approach):
-        return approach.neo.diameter
-    
-class MaxDiameterFilter(AttributeFilter):
+    """Used to construct approach filter filtering above specific diameter.
+    Classmethod gets NEO diameter for __call__ method of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.neo.diameter
 
+
+class MaxDiameterFilter(AttributeFilter):
+    """Used to construct approach filter filtering below specific diameter.
+    Classmethod gets NEO diameter for __call__ method of the superclass."""
+
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.diameter
+
+
 class HazardousFilter(AttributeFilter):
+    """Used to construct approach filter filtering either hazardous or
+    non hazardous NEOs. Classmethod gets NEO hazardousness for __call__ method
+    of the superclass."""
+
     @classmethod
     def get(cls, approach):
         return approach.neo.hazardous
+
 
 def create_filters(
         date=None, start_date=None, end_date=None,
@@ -157,7 +211,7 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # DONE: Decide how you will represent your filters.
+
     filters = []
     if date:
         filters.append(ExactDateFilter(operator.eq, date))
@@ -177,9 +231,9 @@ def create_filters(
         filters.append(MinDiameterFilter(operator.ge, diameter_min))
     if diameter_max:
         filters.append(MaxDiameterFilter(operator.le, diameter_max))
-    if hazardous == True:
+    if hazardous is True:
         filters.append(HazardousFilter(operator.eq, True))
-    if hazardous == False:
+    if hazardous is False:
         filters.append(HazardousFilter(operator.eq, False))
     return filters
 
@@ -193,7 +247,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # DONE: Produce at most `n` values from the given iterator.
+
     i = 0
     for value in iterator:
         if n not in (None, 0) and i >= n:
