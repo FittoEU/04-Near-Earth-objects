@@ -82,96 +82,107 @@ class AttributeFilter:
 
 
 class ExactDateFilter(AttributeFilter):
-    """Used to construct approach filter filtering by specific date.
-    Classmethod gets approach date (from datetime) for __call__ method of
-    the superclass."""
+    """Used to construct approach filter filtering by specific date."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach date (from datetime) for __call__ method of
+        the superclass."""
+
         return approach.time.date()
 
 
 class StartDateFilter(AttributeFilter):
-    """Used to construct approach filter filtering after specific date.
-    Classmethod gets approach date (from datetime) for __call__ method of
-    the superclass."""
+    """Used to construct approach filter filtering after specific date."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach date (from datetime) for __call__ method of
+        the superclass."""
+
         return approach.time.date()
 
 
 class EndDateFilter(AttributeFilter):
-    """Used to construct approach filter filtering before specific date.
-    Classmethod gets approach date (from datetime) for __call__ method of
-    the superclass."""
+    """Used to construct approach filter filtering before specific date."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach date (from datetime) for __call__ method of
+        the superclass."""
+
         return approach.time.date()
 
 
 class MinDistanceFilter(AttributeFilter):
-    """Used to construct approach filter filtering above specific distance.
-    Classmethod gets approach distance for __call__ method of the superclass."""
+    """Used to construct approach filter filtering above specific distance."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach distance for __call__ method of the superclass."""
+
         return approach.distance
 
 
 class MaxDistanceFilter(AttributeFilter):
-    """Used to construct approach filter filtering below specific distance.
-    Classmethod gets approach distance for __call__ method of the superclass."""
+    """Used to construct approach filter filtering below specific distance."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach distance for __call__ method of the superclass."""
+
         return approach.distance
 
 
 class MinVelocityFilter(AttributeFilter):
-    """Used to construct approach filter filtering above specific velocity.
-    Classmethod gets approach velocity for __call__ method of the superclass."""
+    """Used to construct approach filter filtering above specific velocity."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach velocity for __call__ method of the superclass."""
+
         return approach.velocity
 
 
 class MaxVelocityFilter(AttributeFilter):
-    """Used to construct approach filter filtering below specific velocity.
-    Classmethod gets approach velocity for __call__ method of the superclass."""
+    """Used to construct approach filter filtering below specific velocity."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets approach velocity for __call__ method of the superclass."""
+
         return approach.velocity
 
 
 class MinDiameterFilter(AttributeFilter):
-    """Used to construct approach filter filtering above specific diameter.
-    Classmethod gets NEO diameter for __call__ method of the superclass."""
+    """Used to construct approach filter filtering above specific diameter."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets NEO diameter for __call__ method of the superclass."""
+
         return approach.neo.diameter
 
 
 class MaxDiameterFilter(AttributeFilter):
-    """Used to construct approach filter filtering below specific diameter.
-    Classmethod gets NEO diameter for __call__ method of the superclass."""
+    """Used to construct approach filter filtering below specific diameter."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets NEO diameter for __call__ method of the superclass."""
+
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
     """Used to construct approach filter filtering either hazardous or
-    non hazardous NEOs. Classmethod gets NEO hazardousness for __call__ method
-    of the superclass."""
+    non hazardous NEOs."""
 
     @classmethod
     def get(cls, approach):
+        """Classmethod gets NEO hazardousness for __call__ method
+        of the superclass."""
+
         return approach.neo.hazardous
 
 
